@@ -44,6 +44,8 @@ Nogatonga config is at the root of the project folder, under `./nogatonga.php`.
 
 Data for route binding is stored at `./data` folder. These files return data as a set of key-value pairs. This data will be available at template-view layer.
 
+You can use `./data/_data.php` to provide common data that will be available for all route bindings.
+
 ### Template
 
 The template views and snippets are at the `./template` folder.
