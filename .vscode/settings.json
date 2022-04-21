@@ -8,5 +8,8 @@
             "runningStatusMessage": "ECS ${fileBasename}",
             "finishStatusMessage": "${fileBasename} OK"
         },
+    ],
+    "cSpell.words": [
+        "Nogatonga"
     ]
 }
