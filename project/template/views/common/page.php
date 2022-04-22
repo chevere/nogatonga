@@ -14,9 +14,6 @@ declare(strict_types=1);
 use function Chevere\Danky\import;
 use Chevere\Nogatonga\Context;
 
-/**
- * @param Array<string, Array<string, string>> $main
- */
 return function (string $main, Context $context): string {
     $header = import('header', nav: $context->nav);
     $footer = import('footer');

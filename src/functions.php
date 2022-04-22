@@ -13,25 +13,25 @@ declare(strict_types=1);
 
 namespace Chevere\Nogatonga;
 
-use function Chevere\Filesystem\filePhpReturnForPath;
 use Chevere\Nogatonga\Route\Interfaces\RouteInterface;
 use Chevere\Nogatonga\Route\Route;
 use Chevere\Nogatonga\Route\RoutePath;
 use Chevere\Nogatonga\Route\RouteRedirect;
+use Chevere\Nogatonga\Route\Routes;
 
-function routes(RouteInterface ...$route): array
+function routes(RouteInterface ...$routes): Routes
 {
-    return [];
+    return new Routes(...$routes);
 }
 
 function route(
     string $path,
+    array $data = [],
     string $view = '@',
-    array $data = []
-): RouteInterface {
+): Route {
     return new Route(
         path: new RoutePath($path),
-        view: filePhpReturnForPath($view),
+        view: $view,
         data: $data
     );
 }

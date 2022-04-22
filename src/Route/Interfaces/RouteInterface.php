@@ -16,4 +16,8 @@ namespace Chevere\Nogatonga\Route\Interfaces;
 interface RouteInterface
 {
     public function path(): RoutePathInterface;
+        
+    public function withName(string $name): RouteInterface;
+
+    public function name(): string;
 }

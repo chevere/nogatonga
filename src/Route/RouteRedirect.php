@@ -18,9 +18,16 @@ use Chevere\Nogatonga\Route\Interfaces\RouteRedirectInterface;
 
 final class RouteRedirect implements RouteRedirectInterface
 {
+    use RouteTrait;
+
     public function __construct(
         private RoutePathInterface $path,
         private RoutePathInterface $to
     ) {
+    }
+
+    public function to(): RoutePathInterface
+    {
+        return $this->to;
     }
 }

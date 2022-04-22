@@ -13,25 +13,30 @@ declare(strict_types=1);
 
 namespace Chevere\Nogatonga\Route;
 
-use Chevere\Filesystem\Interfaces\FilePhpReturnInterface;
 use Chevere\Nogatonga\Route\Interfaces\RouteInterface;
 use Chevere\Nogatonga\Route\Interfaces\RoutePathInterface;
 
-final class Route implements RouteInterface
+trait RouteTrait
 {
-    use RouteTrait;
-    
-    private FilePhpReturnInterface $template;
+    private RoutePathInterface $path;
 
-    public function __construct(
-        private RoutePathInterface $path,
-        private string $view,
-        private array $data
-    ) {
+    private string $name;
+
+    public function path(): RoutePathInterface
+    {
+        return $this->path;
+    }
+    
+    public function withName(string $name): RouteInterface
+    {
+        $new = clone $this;
+        $new->name = $name;
+        
+        return $new;
     }
 
-    public function template(): FilePhpReturnInterface
+    public function name(): string
     {
-        return $this->template;
+        return $this->name;
     }
 }

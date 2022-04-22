@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Chevere\Nogatonga;
 
+use Chevere\Nogatonga\Route\Interfaces\RouteInterface;
+
 final class Context
 {
     /**
@@ -20,10 +22,21 @@ final class Context
      * @var Array<string, mixed> $data
      */
     public function __construct(
-        public readonly string $route,
+        public readonly RouteInterface $route,
         public readonly array $nav = [],
         public readonly array $data = [],
         public readonly string $lang = 'en',
     ) {
+    }
+
+    public function isRouteName(string $name): bool
+    {
+        return $this->route->name() == $name;
+    }
+
+    public function isRoutePath(string $path): bool
+    {
+        return $this->route->path()->__toString()
+            == $path;
     }
 }
