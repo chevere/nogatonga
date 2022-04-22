@@ -22,21 +22,30 @@ final class Context
      * @var Array<string, mixed> $data
      */
     public function __construct(
-        public readonly RouteInterface $route,
-        public readonly array $nav = [],
-        public readonly array $data = [],
-        public readonly string $lang = 'en',
+        public RouteInterface $route,
+        public array $nav = [],
+        public array $data = [],
+        public string $lang = 'en',
     ) {
     }
 
-    public function isRouteName(string $name): bool
+    public function route(): RouteInterface
     {
-        return $this->route->name() == $name;
+        return $this->route;
     }
 
-    public function isRoutePath(string $path): bool
+    public function nav(): array
     {
-        return $this->route->path()->__toString()
-            == $path;
+        return $this->nav;
+    }
+
+    public function data(): array
+    {
+        return $this->data;
+    }
+
+    public function lang(): string
+    {
+        return $this->lang;
     }
 }

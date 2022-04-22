@@ -27,6 +27,6 @@ final class RoutesTest extends TestCase
             two: route('/two'),
             redirect: routeRedirect('/from', '/to')
         );
-        vdd($routes->toArray());
+        $this->assertCount(3, $routes);
     }
 }

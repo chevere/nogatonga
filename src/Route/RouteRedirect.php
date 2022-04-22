@@ -13,20 +13,27 @@ declare(strict_types=1);
 
 namespace Chevere\Nogatonga\Route;
 
-use Chevere\Nogatonga\Route\Interfaces\RoutePathInterface;
-use Chevere\Nogatonga\Route\Interfaces\RouteRedirectInterface;
+use function Chevere\Message\message;
+use Chevere\Nogatonga\Route\Interfaces\RouteInterface;
+use Chevere\Nogatonga\Route\Traits\RouteTrait;
+use Chevere\Throwable\Exceptions\LogicException;
 
-final class RouteRedirect implements RouteRedirectInterface
+final class RouteRedirect implements RouteInterface
 {
     use RouteTrait;
 
     public function __construct(
-        private RoutePathInterface $path,
-        private RoutePathInterface $to
+        private RoutePath $path,
+        private RoutePath $to
     ) {
+        if ($path->__toString() === $to->__toString()) {
+            throw new LogicException(
+                message('Route redirect path cannot be the same as the destination path')
+            );
+        }
     }
 
-    public function to(): RoutePathInterface
+    public function to(): RoutePath
     {
         return $this->to;
     }

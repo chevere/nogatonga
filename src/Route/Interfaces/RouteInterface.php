@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace Chevere\Nogatonga\Route\Interfaces;
 
+use Chevere\Nogatonga\Route\RoutePath;
+
 interface RouteInterface
 {
-    public function path(): RoutePathInterface;
-        
+    public function path(): RoutePath;
+
     public function withName(string $name): RouteInterface;
 
     public function name(): string;

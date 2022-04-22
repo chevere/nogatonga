@@ -13,11 +13,29 @@ declare(strict_types=1);
 
 namespace Chevere\Nogatonga\Route;
 
-use Chevere\Nogatonga\Route\Interfaces\RoutePathInterface;
+use Chevere\Str\StrAssert;
+use Stringable;
 
-final class RoutePath implements RoutePathInterface
+final class RoutePath implements Stringable
 {
     public function __construct(private string $path)
     {
+        $assert = new StrAssert($path);
+        $assert
+            ->notEmpty()
+            ->notCtypeSpace()
+            ->notContains('\\')
+            ->notContains('//')
+            ->startsWith('/')
+            ->notContains('../')
+            ->notContains('./');
+        if (strlen($path) > 1) {
+            $assert->notEndsWith('/');
+        }
+    }
+
+    public function __toString(): string
+    {
+        return $this->path;
     }
 }

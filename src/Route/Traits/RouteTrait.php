@@ -11,27 +11,26 @@
 
 declare(strict_types=1);
 
-namespace Chevere\Nogatonga\Route;
+namespace Chevere\Nogatonga\Route\Traits;
 
-use Chevere\Nogatonga\Route\Interfaces\RouteInterface;
-use Chevere\Nogatonga\Route\Interfaces\RoutePathInterface;
+use Chevere\Nogatonga\Route\RoutePath;
 
 trait RouteTrait
 {
-    private RoutePathInterface $path;
+    private RoutePath $path;
 
-    private string $name;
+    private string $name = '';
 
-    public function path(): RoutePathInterface
+    public function path(): RoutePath
     {
         return $this->path;
     }
-    
-    public function withName(string $name): RouteInterface
+
+    public function withName(string $name): static
     {
         $new = clone $this;
         $new->name = $name;
-        
+
         return $new;
     }
 
