@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace Chevere\Tests\Route;
 
 use function Chevere\Nogatonga\route;
+use Chevere\Nogatonga\Route\Routes;
 use function Chevere\Nogatonga\routeRedirect;
 use function Chevere\Nogatonga\routes;
+use Chevere\Throwable\Exceptions\OverflowException;
 use PHPUnit\Framework\TestCase;
 
 final class RoutesTest extends TestCase
@@ -28,5 +30,15 @@ final class RoutesTest extends TestCase
             redirect: routeRedirect('/from', '/to')
         );
         $this->assertCount(3, $routes);
+    }
+
+    public function testCollision(): void
+    {
+        $this->expectException(OverflowException::class);
+        $this->expectExceptionMessage('Path /one has been already registered by route one');
+        new Routes(
+            one: route('/one'),
+            two: route('/one'),
+        );
     }
 }

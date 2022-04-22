@@ -42,9 +42,4 @@ final class Route implements RouteInterface
     {
         return $this->data;
     }
-
-    public function template(): FilePhpReturnInterface
-    {
-        return $this->template;
-    }
 }
