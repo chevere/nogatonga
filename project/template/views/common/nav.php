@@ -11,11 +11,24 @@
 
 declare(strict_types=1);
 
-return function (): string {
+use function Chevere\Danky\import;
+use Chevere\Str\Str;
+
+return function (string ...$links): string {
+    $tags = "";
+    foreach ($links as $href => $text) {
+        $import = import('a', href: $href, text: $text);
+        $tags .= <<<HTML
+                    $import\n
+        HTML;
+    }
+    $tags = (new Str($tags))
+        ->withReplaceLast("\n", '')
+        ->__toString();
+
     return <<<HTML
             <nav>
-                <a href="@@url.home">Home</a>
-                <a href="@@url.about">About</a>
+    $tags
             </nav>
     HTML;
 };

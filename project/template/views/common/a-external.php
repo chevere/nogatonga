@@ -12,15 +12,10 @@
 declare(strict_types=1);
 
 return function (
-    string $head,
-    string $body,
-    string $lang = 'en'
+    string $href,
+    string $text,
 ): string {
     return <<<HTML
-    <!DOCTYPE html>
-    <html lang="$lang">
-    $head
-    $body
-    </html>
+    <a href="$href" target="_blank" rel="external">$text</a>
     HTML;
 };

@@ -13,12 +13,15 @@ declare(strict_types=1);
 
 use function Chevere\Danky\import;
 
-return function (): string {
-    $nav = import('nav');
+/**
+ * @param Array<string, string> $nav
+ */
+return function (array $nav): string {
+    $tag = import('nav', ...$nav);
 
     return <<<HTML
         <header>
-    $nav
+    $tag
         </header>
     HTML;
 };

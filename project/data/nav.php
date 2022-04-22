@@ -11,16 +11,7 @@
 
 declare(strict_types=1);
 
-return function (
-    string $head,
-    string $body,
-    string $lang = 'en'
-): string {
-    return <<<HTML
-    <!DOCTYPE html>
-    <html lang="$lang">
-    $head
-    $body
-    </html>
-    HTML;
-};
+return [
+    '/' => 'Home',
+    '/about' => 'About',
+];

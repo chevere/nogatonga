@@ -11,6 +11,8 @@
 
 declare(strict_types=1);
 
-return [
-    'key' => 'value',
-];
+return function (string $href, string $text): string {
+    return <<<HTML
+    <a href="$href">$text</a>
+    HTML;
+};

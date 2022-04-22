@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-return function (string $body): string {
+return function (string $body, string $route): string {
     return <<<HTML
-    <body>
+    <body rel="$route">
     $body
     </body>
     HTML;

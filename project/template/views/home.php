@@ -12,7 +12,12 @@
 declare(strict_types=1);
 
 use function Chevere\Danky\import;
+use Chevere\Nogatonga\Context;
 
-return function (): string {
-    return import('common/page', main: 'HoMePaGe');
+return function (Context $context): string {
+    return import(
+        'common/page',
+        main: 'HoMePaGe',
+        context: $context
+    );
 };

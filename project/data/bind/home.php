@@ -12,5 +12,5 @@
 declare(strict_types=1);
 
 return [
-    'key' => 'value',
+    'key' => 'home',
 ];
