@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Chevere\Nogatonga\Route;
 
-use Chevere\Filesystem\Interfaces\FilePhpReturnInterface;
 use Chevere\Nogatonga\Route\Interfaces\RouteInterface;
 use Chevere\Nogatonga\Route\Traits\RouteTrait;
 
@@ -21,25 +20,14 @@ final class Route implements RouteInterface
 {
     use RouteTrait;
 
-    private FilePhpReturnInterface $template;
-
-    /**
-     * @param Array<string, mixed> $data
-     */
     public function __construct(
         private RoutePath $path,
         private string $view,
-        private array $data
     ) {
     }
 
     public function view(): string
     {
         return $this->view;
-    }
-
-    public function data(): array
-    {
-        return $this->data;
     }
 }

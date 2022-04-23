@@ -22,17 +22,14 @@ final class RouteTest extends TestCase
     public function testConstruct(): void
     {
         $routePath = new RoutePath('/test');
-        $data = ['key' => 'value'];
         $view = '@';
         $route = new Route(
             path: $routePath,
             view: $view,
-            data: $data,
         );
         $this->assertSame('', $route->name());
         $this->assertSame($routePath, $route->path());
         $this->assertSame($view, $route->view());
-        $this->assertSame($data, $route->data());
     }
 
     public function testWithName(): void
@@ -40,7 +37,6 @@ final class RouteTest extends TestCase
         $route = new Route(
             path: new RoutePath('/'),
             view: '@',
-            data: []
         );
         $routeWithName = $route->withName('name');
         $this->assertNotSame($route, $routeWithName);

@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Chevere\Nogatonga;
 
+use Chevere\Danky\Import;
+use Chevere\Danky\Template;
+use Chevere\Filesystem\Interfaces\DirInterface;
 use Chevere\Nogatonga\Route\Interfaces\RouteInterface;
 use Chevere\Nogatonga\Route\Route;
 use Chevere\Nogatonga\Route\RoutePath;
@@ -26,13 +29,11 @@ function routes(RouteInterface ...$routes): Routes
 
 function route(
     string $path,
-    array $data = [],
-    string $view = '@',
+    string $view = '',
 ): Route {
     return new Route(
         path: new RoutePath($path),
         view: $view,
-        data: $data
     );
 }
 
@@ -42,4 +43,20 @@ function routeRedirect(string $path, string $to): RouteInterface
         path: new RoutePath($path),
         to: new RoutePath($to),
     );
+}
+
+function loadView(
+    DirInterface $dir,
+    Route $route,
+): Template {
+    $view = $route->view();
+    if ($view === '') {
+        $view = $route->name();
+    }
+    $importPath = new Import(
+        path: $view,
+        dir: $dir
+    );
+
+    return new Template($importPath->file());
 }

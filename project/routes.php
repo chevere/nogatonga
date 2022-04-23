@@ -18,13 +18,10 @@ use function Chevere\Nogatonga\routes;
 return routes(
     home: route(
         path: '/',
-        // view: '@',
-        // data: []
+        view: 'home',
     ),
     about: route(
         path: '/about',
-        // view: '@',
-        // data: []
     ),
     tos: routeRedirect(
         '/tos',
