@@ -11,10 +11,7 @@
 
 declare(strict_types=1);
 
-return function (
-    string $href,
-    string $text,
-): string {
+return function (string $href, string $text): string {
     return <<<HTML
     <a href="$href" target="_blank" rel="external">$text</a>
     HTML;
