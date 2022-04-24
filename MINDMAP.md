@@ -44,42 +44,41 @@ Nogatonga config is at the root of the project folder, under `./nogatonga.php`.
 
 Data for route binding is stored at `./data` folder. These files return data as a set of key-value pairs. This data will be available at template-view layer.
 
-You can use `./data/_data.php` to provide common data that will be available for all route bindings.
+You can use `./data/base.php` to provide common data that will be available for all route bindings.
 
 ### Template
 
 The template views and snippets are at the `./template` folder.
 
-### Routes
+### Biding
 
-Named routes for the project are defined at the `./routes.php` file. You can define route bindings using the `route` function, also redirects using the `routeRedirect` function.
+Route/view bindings are defined at the `./binding.php` file. You can define route bindings using the `bind` function, also redirects using the `bindRedirect` function.
 
 ```php
-use function Chevere\Nogatonga\route;
-use function Chevere\Nogatonga\routeRedirect;
-use function Chevere\Nogatonga\routes;
+use function Chevere\Nogatonga\bind;
+use function Chevere\Nogatonga\bindRedirect;
+use function Chevere\Nogatonga\binding;
 
-return routes(
-    home: route(
+return binding(
+    home: bind(
         path: '/',
     ),
-    about: route(
+    about: bind(
         path: '/about',
     ),
-    tos: routeRedirect(
+    tos: bindRedirect(
         '/tos',
         '/about'
     ),
 );
 ```
 
-By default, routes will **bind data** from `./data/<route_name>.php` and **its view** at `./template/views/<route_name>.php`. You can override that by passing custom `data` and `view` values.
+Pages will **bind data** from `./data/bind/<route_name>.php` and **its view** at `./template/views/<route_name>.php`. Custom view can be provided by passing `view:`.
 
 ```php
 route(
     path: '/',
     view: 'home-alt',
-    data: '/home-2'
 )
 ```
 
