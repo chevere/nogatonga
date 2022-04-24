@@ -14,10 +14,21 @@ declare(strict_types=1);
 use function Chevere\Danky\import;
 use Chevere\Str\Str;
 
-return function (string ...$links): string {
+return function (array $navbar): string {
     $tags = "";
-    foreach ($links as $href => $text) {
-        $import = import('a', href: $href, text: $text);
+    /**
+     * @var string $page
+     * @var Array<string, string>
+     */
+    foreach ($navbar as $page => $array) {
+        $href = $array[0];
+        $text = $array[1];
+        $import = import(
+            'a-page',
+            href: $href,
+            text: $text,
+            page: $page
+        );
         $tags .= <<<HTML
                     $import\n
         HTML;

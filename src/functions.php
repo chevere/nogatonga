@@ -13,50 +13,67 @@ declare(strict_types=1);
 
 namespace Chevere\Nogatonga;
 
+use function Chevere\Danky\callerDir;
 use Chevere\Danky\Import;
 use Chevere\Danky\Template;
 use Chevere\Filesystem\Interfaces\DirInterface;
-use Chevere\Nogatonga\Route\Interfaces\RouteInterface;
-use Chevere\Nogatonga\Route\Route;
-use Chevere\Nogatonga\Route\RoutePath;
-use Chevere\Nogatonga\Route\RouteRedirect;
-use Chevere\Nogatonga\Route\Routes;
+use Chevere\Nogatonga\Interfaces\BindInterface;
 
-function routes(RouteInterface ...$routes): Routes
+function binding(BindInterface ...$binds): Binding
 {
-    return new Routes(...$routes);
+    foreach ($binds as $name => &$bind) {
+        $name = strval($name);
+        $bind = $bind->withName($name);
+        if ($bind instanceof Bind) {
+            $view = $bind->view();
+            if ($view === '') {
+                $bind = $bind->withView($name);
+            }
+        }
+    }
+
+    return new Binding(callerDir(), ...$binds);
 }
 
-function route(
-    string $path,
+/**
+ * @param string $route An absolute URL path
+ * @param string $view View name relative to ./template/views/
+ */
+function bind(
+    string $route,
     string $view = '',
-): Route {
-    return new Route(
-        path: new RoutePath($path),
+): Bind {
+    return new Bind(
+        route: new Route($route),
         view: $view,
     );
 }
 
-function routeRedirect(string $path, string $to): RouteInterface
+function bindRedirect(string $route, string $to): BindInterface
 {
-    return new RouteRedirect(
-        path: new RoutePath($path),
-        to: new RoutePath($to),
+    return new BindRedirect(
+        route: new Route($route),
+        to: new Route($to),
     );
 }
 
 function loadView(
-    DirInterface $dir,
-    Route $route,
+    DirInterface $viewsDir,
+    Bind $bind,
 ): Template {
-    $view = $route->view();
-    if ($view === '') {
-        $view = $route->name();
-    }
     $importPath = new Import(
-        path: $view,
-        dir: $dir
+        path: $bind->view(),
+        dir: $viewsDir,
     );
 
     return new Template($importPath->file());
+}
+
+function build(DirInterface $project, DirInterface $target): void
+{
+    $project->createIfNotExists();
+    if ($target->exists()) {
+        $target->remove();
+    }
+    $target->create();
 }

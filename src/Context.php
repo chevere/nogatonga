@@ -13,30 +13,30 @@ declare(strict_types=1);
 
 namespace Chevere\Nogatonga;
 
-use Chevere\Nogatonga\Route\Interfaces\RouteInterface;
+use Chevere\Nogatonga\Interfaces\BindInterface;
 
 final class Context
 {
     /**
-     * @var Array<string, string> $nav
+     * @var Array<string, string> $navbar
      * @var Array<string, mixed> $data
      */
     public function __construct(
-        public RouteInterface $route,
-        public array $nav = [],
+        public BindInterface $bind,
+        public array $navbar = [],
         public array $data = [],
         public string $lang = 'en',
     ) {
     }
 
-    public function route(): RouteInterface
+    public function bind(): BindInterface
     {
-        return $this->route;
+        return $this->bind;
     }
 
-    public function nav(): array
+    public function navbar(): array
     {
-        return $this->nav;
+        return $this->navbar;
     }
 
     public function data(): array

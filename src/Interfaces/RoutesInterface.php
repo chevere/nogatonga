@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Chevere\Nogatonga\Route\Interfaces;
+namespace Chevere\Nogatonga\Interfaces;
 
 interface RoutesInterface
 {

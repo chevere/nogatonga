@@ -11,14 +11,21 @@
 
 declare(strict_types=1);
 
+use Chevere\Nogatonga\Bind;
+
 return function (
     string $head,
     string $body,
+    Bind $bind,
     string $lang = 'en'
 ): string {
+    $name = $bind->name();
+    $route = $bind->route();
+    $view = $bind->view();
+
     return <<<HTML
     <!DOCTYPE html>
-    <html lang="$lang">
+    <html lang="$lang" data-page="$name" data-route="$route" data-view="$view">
     $head
     $body
     </html>

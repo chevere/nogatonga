@@ -1,9 +1,58 @@
 #!/usr/bin/env php
 <?php
 
+use Chevere\Nogatonga\Bind;
+use Chevere\Nogatonga\Binding;
+use Chevere\Nogatonga\BindRedirect;
+use Chevere\Nogatonga\Context;
+use Chevere\ThrowableHandler\ThrowableHandler;
+use Chevere\Writer\StreamWriter;
+use function Chevere\Filesystem\dirForPath;
+use function Chevere\Filesystem\filePhpReturnForPath;
+use function Chevere\Nogatonga\loadView;
+use function Chevere\Type\typeArray;
+use function Chevere\Type\typeObject;
+use function Chevere\Writer\streamFor;
+
 foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
     if (file_exists($file)) {
         require $file;
         break;
+    }
+}
+set_exception_handler(ThrowableHandler::CONSOLE);
+$writer = new StreamWriter(streamFor('php://stdout', 'w'));
+$root = dirForPath(realpath(__DIR__ . '/../'));
+$projectDir = $root->getChild('project/');
+$viewsDir = $projectDir->getChild('template/views/');
+$dataPath = $projectDir->getChild('data/')->path();
+$targetDir = $root->getChild('target/');
+$binding = filePhpReturnForPath(
+    $projectDir->path()->getChild('binding.php')->__toString()
+)->varType(typeObject(Binding::class));
+/**
+ * @var string $name
+ * @var BindInterface $bind
+ */
+foreach($binding->getIterator() as $name => $bind) {
+    if($bind instanceof Bind) {
+        $template = loadView($viewsDir, $bind);
+        $navbar = filePhpReturnForPath(
+            $dataPath->getChild('navbar.php')
+        )->varType(typeArray());
+        $data = filePhpReturnForPath(
+            $dataPath->getChild('base.php')
+        )->varType(typeArray());
+        vd($template->call(context: new Context(
+            bind: $bind,
+            navbar: $navbar,
+            data: $data,
+            lang: 'es'
+        )));
+    }
+    if($bind instanceof BindRedirect) {
+        $from = $bind->route()->__toString();
+        $to = $bind->to()->__toString();
+        vd(from: $from, to: $to);
     }
 }

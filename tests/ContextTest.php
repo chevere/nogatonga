@@ -13,37 +13,37 @@ declare(strict_types=1);
 
 namespace Chevere\Tests;
 
+use function Chevere\Nogatonga\bind;
 use Chevere\Nogatonga\Context;
-use function Chevere\Nogatonga\route;
 use PHPUnit\Framework\TestCase;
 
 final class ContextTest extends TestCase
 {
     public function testConstructDefaults(): void
     {
-        $route = route('/');
+        $route = bind('/');
         $context = new Context(
-            route: $route,
+            bind: $route,
         );
-        $this->assertSame($route, $context->route());
-        $this->assertSame([], $context->nav());
+        $this->assertSame($route, $context->bind());
+        $this->assertSame([], $context->navbar());
         $this->assertSame([], $context->data());
         $this->assertSame('en', $context->lang());
     }
 
     public function testConstruct(): void
     {
-        $route = route('/test')->withName('test');
-        $nav = ['/test' => 'Test'];
+        $route = bind('/test')->withName('test');
+        $navbar = ['/test' => 'Test'];
         $data = ['test' => 'test'];
         $context = new Context(
-            route: $route,
-            nav: $nav,
+            bind: $route,
+            navbar: $navbar,
             data: $data,
             lang: 'es'
         );
-        $this->assertSame($route, $context->route());
-        $this->assertSame($nav, $context->nav());
+        $this->assertSame($route, $context->bind());
+        $this->assertSame($navbar, $context->navbar());
         $this->assertSame($data, $context->data());
         $this->assertSame('es', $context->lang());
     }

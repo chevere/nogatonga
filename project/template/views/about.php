@@ -11,10 +11,13 @@
 
 declare(strict_types=1);
 
-return function (string $body): string {
-    return <<<HTML
-    <body>
-    $body
-    </body>
-    HTML;
+use function Chevere\Danky\import;
+use Chevere\Nogatonga\Context;
+
+return function (Context $context): string {
+    return import(
+        'common/page',
+        main: 'AbOuT',
+        context: $context
+    );
 };

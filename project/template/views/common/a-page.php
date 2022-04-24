@@ -11,6 +11,8 @@
 
 declare(strict_types=1);
 
-return [
-    'name' => 'project',
-];
+return function (string $href, string $text, string $page): string {
+    return <<<HTML
+    <a data-page="$page" href="$href">$text</a>
+    HTML;
+};

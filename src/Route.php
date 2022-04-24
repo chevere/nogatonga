@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Chevere\Nogatonga\Route;
+namespace Chevere\Nogatonga;
 
 use Chevere\Str\StrAssert;
 use Stringable;
 
-final class RoutePath implements Stringable
+final class Route implements Stringable
 {
     public function __construct(private string $path)
     {

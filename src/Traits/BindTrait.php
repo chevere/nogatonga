@@ -11,19 +11,19 @@
 
 declare(strict_types=1);
 
-namespace Chevere\Nogatonga\Route\Traits;
+namespace Chevere\Nogatonga\Traits;
 
-use Chevere\Nogatonga\Route\RoutePath;
+use Chevere\Nogatonga\Route;
 
-trait RouteTrait
+trait BindTrait
 {
-    private RoutePath $path;
+    private Route $route;
 
     private string $name = '';
 
-    public function path(): RoutePath
+    public function route(): Route
     {
-        return $this->path;
+        return $this->route;
     }
 
     public function withName(string $name): static

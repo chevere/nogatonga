@@ -12,6 +12,6 @@
 declare(strict_types=1);
 
 return [
-    '/' => 'Home',
-    '/about' => 'About',
+    'home' => ['/', 'Home'],
+    'about' => ['/about', 'About us'],
 ];

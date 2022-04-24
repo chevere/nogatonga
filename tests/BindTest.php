@@ -11,31 +11,31 @@
 
 declare(strict_types=1);
 
-namespace Chevere\Tests\Route;
+namespace Chevere\Tests;
 
-use Chevere\Nogatonga\Route\Route;
-use Chevere\Nogatonga\Route\RoutePath;
+use Chevere\Nogatonga\Bind;
+use Chevere\Nogatonga\Route;
 use PHPUnit\Framework\TestCase;
 
-final class RouteTest extends TestCase
+final class BindTest extends TestCase
 {
     public function testConstruct(): void
     {
-        $routePath = new RoutePath('/test');
+        $routePath = new Route('/test');
         $view = '@';
-        $route = new Route(
-            path: $routePath,
+        $route = new Bind(
+            route: $routePath,
             view: $view,
         );
         $this->assertSame('', $route->name());
-        $this->assertSame($routePath, $route->path());
+        $this->assertSame($routePath, $route->route());
         $this->assertSame($view, $route->view());
     }
 
     public function testWithName(): void
     {
-        $route = new Route(
-            path: new RoutePath('/'),
+        $route = new Bind(
+            route: new Route('/'),
             view: '@',
         );
         $routeWithName = $route->withName('name');

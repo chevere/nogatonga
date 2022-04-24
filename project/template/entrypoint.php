@@ -12,6 +12,7 @@
 declare(strict_types=1);
 
 use function Chevere\Danky\import;
+use function Chevere\Nogatonga\bind;
 use Chevere\Nogatonga\Context;
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -19,8 +20,8 @@ require __DIR__ . '/../../vendor/autoload.php';
 echo import(
     'views/home',
     context: new Context(
-        route: '/',
-        nav: include __DIR__ . '/../data/nav.php',
+        bind: bind('/'),
+        navbar: include __DIR__ . '/../data/navbar.php',
         data: include __DIR__ . '/../data/data.php',
         lang: 'es'
     )

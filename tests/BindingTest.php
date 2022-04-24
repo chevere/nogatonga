@@ -11,23 +11,24 @@
 
 declare(strict_types=1);
 
-namespace Chevere\Tests\Route;
+namespace Chevere\Tests;
 
-use function Chevere\Nogatonga\route;
-use Chevere\Nogatonga\Route\Routes;
-use function Chevere\Nogatonga\routeRedirect;
-use function Chevere\Nogatonga\routes;
+use function Chevere\Danky\callerDir;
+use function Chevere\Nogatonga\bind;
+use Chevere\Nogatonga\Binding;
+use function Chevere\Nogatonga\binding;
+use function Chevere\Nogatonga\bindRedirect;
 use Chevere\Throwable\Exceptions\OverflowException;
 use PHPUnit\Framework\TestCase;
 
-final class RoutesTest extends TestCase
+final class BindingTest extends TestCase
 {
     public function testConstruct(): void
     {
-        $routes = routes(
-            one: route('/one'),
-            two: route('/two'),
-            redirect: routeRedirect('/from', '/to')
+        $routes = binding(
+            one: bind('/one'),
+            two: bind('/two'),
+            redirect: bindRedirect('/from', '/to')
         );
         $this->assertCount(3, $routes);
     }
@@ -36,9 +37,10 @@ final class RoutesTest extends TestCase
     {
         $this->expectException(OverflowException::class);
         $this->expectExceptionMessage('Path /one has been already registered by route one');
-        new Routes(
-            one: route('/one'),
-            two: route('/one'),
+        new Binding(
+            callerDir(),
+            one: bind('/one'),
+            two: bind('/one'),
         );
     }
 }

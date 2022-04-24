@@ -11,29 +11,29 @@
 
 declare(strict_types=1);
 
-namespace Chevere\Tests\Route;
+namespace Chevere\Tests;
 
-use Chevere\Nogatonga\Route\RoutePath;
-use Chevere\Nogatonga\Route\RouteRedirect;
+use Chevere\Nogatonga\BindRedirect;
+use Chevere\Nogatonga\Route;
 use Chevere\Throwable\Exceptions\LogicException;
 use PHPUnit\Framework\TestCase;
 
-final class RouteRedirectTest extends TestCase
+final class BindRedirectTest extends TestCase
 {
     public function testSamePath(): void
     {
-        $path = new RoutePath('/from');
-        $to = new RoutePath('/from');
+        $path = new Route('/from');
+        $to = new Route('/from');
         $this->expectException(LogicException::class);
-        new RouteRedirect($path, $to);
+        new BindRedirect($path, $to);
     }
 
     public function testConstruct(): void
     {
-        $path = new RoutePath('/from');
-        $to = new RoutePath('/to');
-        $routeRedirect = new RouteRedirect($path, $to);
-        $this->assertSame($path, $routeRedirect->path());
+        $path = new Route('/from');
+        $to = new Route('/to');
+        $routeRedirect = new BindRedirect($path, $to);
+        $this->assertSame($path, $routeRedirect->route());
         $this->assertSame($to, $routeRedirect->to());
     }
 }

@@ -11,19 +11,27 @@
 
 declare(strict_types=1);
 
-namespace Chevere\Nogatonga\Route;
+namespace Chevere\Nogatonga;
 
-use Chevere\Nogatonga\Route\Interfaces\RouteInterface;
-use Chevere\Nogatonga\Route\Traits\RouteTrait;
+use Chevere\Nogatonga\Interfaces\BindInterface;
+use Chevere\Nogatonga\Traits\BindTrait;
 
-final class Route implements RouteInterface
+final class Bind implements BindInterface
 {
-    use RouteTrait;
+    use BindTrait;
 
     public function __construct(
-        private RoutePath $path,
+        private Route $route,
         private string $view,
     ) {
+    }
+
+    public function withView(string $view): Bind
+    {
+        $new = clone $this;
+        $new->view = $view;
+
+        return $new;
     }
 
     public function view(): string

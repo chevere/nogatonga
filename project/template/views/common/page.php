@@ -15,7 +15,7 @@ use function Chevere\Danky\import;
 use Chevere\Nogatonga\Context;
 
 return function (string $main, Context $context): string {
-    $header = import('header', nav: $context->nav);
+    $header = import('header', navbar: $context->navbar);
     $footer = import('footer');
     $head = import('head');
     $body = import(
@@ -25,13 +25,13 @@ return function (string $main, Context $context): string {
             <main>$main</main>
         $footer
         HTML,
-        route: $context->route
     );
 
     return import(
         'html',
         head: $head,
         body: $body,
+        bind: $context->bind,
         lang: $context->lang
     );
 };

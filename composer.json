@@ -14,6 +14,7 @@
     "require": {
         "chevere/chevere": "^0.7",
         "chevere/danky": "^0.1",
+        "chevere/throwable-handler": "^0.3.0",
         "chevere/workflow": "^0.3"
     },
     "require-dev": {

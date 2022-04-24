@@ -11,8 +11,15 @@
 
 declare(strict_types=1);
 
-return function (string $href, string $text): string {
-    return <<<HTML
-    <a href="$href">$text</a>
-    HTML;
-};
+namespace Chevere\Nogatonga\Interfaces;
+
+use Chevere\Nogatonga\Route;
+
+interface BindInterface
+{
+    public function route(): Route;
+
+    public function withName(string $name): BindInterface;
+
+    public function name(): string;
+}
